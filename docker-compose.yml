@@ -1,0 +1,17 @@
+version: '3'
+services:
+  web:
+    build: .
+    environment:
+      - FLASK_APP=runner.py
+      - FLASK_ENV=development
+      - DATABASE_URL=sqlite:////app/src/blog.db
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+  db:
+    image: python:3
+    command: ["/app/entrypoint.sh"]
+    volumes:
+      - .:/app
